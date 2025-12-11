@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CEDP SAC — Mi cuenta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: INTER -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --base-size: 16px; font-family: 'Inter', sans-serif; }
+    html { font-size: var(--base-size); font-family: 'Inter', sans-serif; }
+    body { font-family: 'Inter', sans-serif; }
+    .text-section-title { font-size: 1.75rem; font-weight: 900; }
+    .text-card-title { font-size: 1.25rem; font-weight: 800; }
+    .text-hero { font-size: 2.5rem; font-weight: 900; }
+    .text-body { font-size: 1rem; line-height: 1.6; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased leading-relaxed">
+
+  <!-- Header -->
+  <header class="bg-white/95 sticky top-0 z-50 backdrop-blur-lg border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <svg class="w-10 h-10 text-indigo-600" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <rect width="24" height="24" rx="6" fill="currentColor" />
+        </svg>
+        <div>
+          <h1 class="text-lg font-900">CEDP <span class="text-indigo-600">SAC</span></h1>
+          <p class="text-xs text-slate-500 -mt-1">Mi cuenta</p>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <button id="cartBtn" class="relative p-2.5 rounded-lg hover:bg-slate-100 transition" aria-label="Ver carrito">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M3 3h2l.9 5.4A4 4 0 0 0 9.8 12h7.4a4 4 0 0 0 3.9-3.6L22 6H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span id="cartCount" class="absolute -top-1 -right-1 bg-rose-500 text-white text-xs font-700 rounded-full w-5 h-5 grid place-items-center">0</span>
+        </button>
+        <a href="login.html" id="logoutBtn" class="px-4 py-2 rounded-full bg-indigo-600 text-white font-700 hover:bg-indigo-700 transition">Salir</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+    <!-- SIDEBAR -->
+    <aside class="md:col-span-1 bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 rounded-full bg-indigo-100 grid place-items-center text-indigo-600 font-900 text-xl">U</div>
+        <div>
+          <div id="userName" class="font-800 text-slate-900">Invitado</div>
+          <div id="userEmail" class="text-sm text-slate-500">usuario@ejemplo.com</div>
+        </div>
+      </div>
+
+      <nav class="mt-6 space-y-2">
+        <a href="#dashboard" class="block px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 font-700">Dashboard</a>
+        <a href="#enrollments" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Mis cursos</a>
+        <a href="#cart" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Carrito</a>
+        <a href="#payments" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Pagos</a>
+        <a href="#settings" class="block px-3 py-2 rounded-lg hover:bg-slate-50">Configuración</a>
+      </nav>
+
+      <div class="mt-6">
+        <button id="editProfile" class="w-full px-4 py-2 rounded-lg border-2 border-indigo-600 text-indigo-600 font-700">Editar perfil</button>
+      </div>
+    </aside>
+
+    <!-- MAIN DASHBOARD -->
+    <section class="md:col-span-3 space-y-6">
+      <div id="dashboard" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-900">Bienvenido, <span id="greetName">Usuario</span></h2>
+            <p class="text-sm text-slate-600 mt-1">Aquí gestionas tus cursos, pagos y preferencias.</p>
+          </div>
+          <div class="flex gap-3 items-center">
+            <div class="text-sm text-slate-500">Último acceso: <span id="lastAccess">—</span></div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-4 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl border border-slate-100">
+            <div class="text-sm text-slate-500">Cursos inscritos</div>
+            <div id="statEnrolled" class="text-2xl font-900 text-slate-900 mt-2">0</div>
+          </div>
+          <div class="p-4 bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl border border-slate-100">
+            <div class="text-sm text-slate-500">Pagos pendientes</div>
+            <div id="statPending" class="text-2xl font-900 text-slate-900 mt-2">0</div>
+          </div>
+          <div class="p-4 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl border border-slate-100">
+            <div class="text-sm text-slate-500">Artículos en carrito</div>
+            <div id="statCart" class="text-2xl font-900 text-slate-900 mt-2">0</div>
+          </div>
+        </div>
+
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <h4 class="text-card-title font-800">Actividad reciente</h4>
+            <p class="text-sm text-slate-600 mt-2">Acciones recientes en tu cuenta.</p>
+            <ul id="activityList" class="mt-4 space-y-3">
+              <li class="text-sm text-slate-500">Sin actividad reciente.</li>
+            </ul>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <h4 class="text-card-title font-800">Pedidos y facturas</h4>
+            <p class="text-sm text-slate-600 mt-2">Historial de compras y comprobantes.</p>
+            <div id="ordersList" class="mt-4 space-y-3">
+              <p class="text-sm text-slate-500">No hay pedidos registrados.</p>
+            </div>
+          </div>
+        </div>
+
+      <div id="enrollments" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <h3 class="text-card-title font-800">Mis cursos</h3>
+        <p class="text-sm text-slate-600 mt-2">Tus cursos activos y el progreso (simulado).</p>
+
+        <div id="enrollList" class="mt-4 space-y-3">
+          <p class="text-sm text-slate-500">No tienes cursos inscritos aún.</p>
+        </div>
+      </div>
+
+      <div id="cart" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <h3 class="text-card-title font-800">Carrito</h3>
+        <div id="cartSummary" class="mt-4 space-y-3">
+          <p class="text-sm text-slate-500">Tu carrito está vacío.</p>
+        </div>
+      </div>
+
+      <div id="settings" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <h3 class="text-card-title font-800">Configuración de perfil</h3>
+        <form id="profileForm" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm font-700 text-slate-900">Nombre</label>
+            <input id="inputName" class="w-full mt-2 border-2 border-slate-200 rounded-lg px-4 py-2.5 focus:outline-none focus:border-indigo-600" />
+          </div>
+          <div>
+            <label class="text-sm font-700 text-slate-900">Correo</label>
+            <input id="inputEmail" class="w-full mt-2 border-2 border-slate-200 rounded-lg px-4 py-2.5 focus:outline-none focus:border-indigo-600" />
+          </div>
+          <div class="md:col-span-2">
+            <label class="text-sm font-700 text-slate-900">Biografía</label>
+            <textarea id="inputBio" rows="3" class="w-full mt-2 border-2 border-slate-200 rounded-lg px-4 py-2.5 focus:outline-none focus:border-indigo-600"></textarea>
+          </div>
+          <div class="md:col-span-2 flex gap-3">
+            <button type="button" id="saveProfile" class="px-6 py-3 bg-indigo-600 text-white rounded-lg font-700 hover:bg-indigo-700">Guardar cambios</button>
+            <button type="button" id="logoutBtn2" class="px-6 py-3 border-2 border-slate-200 rounded-lg">Cerrar sesión</button>
+          </div>
+        </form>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- CART MODAL -->
+  <div id="cartModal" class="fixed inset-0 hidden flex items-center justify-center z-50">
+    <div class="absolute inset-0 bg-black/30" data-close></div>
+    <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl z-50">
+      <h3 class="text-2xl font-900 text-slate-900">Tu carrito</h3>
+      <div id="cartItems" class="mt-6"></div>
+      <div class="mt-8 flex justify-between items-center border-t pt-6">
+        <div class="text-xl font-900 text-slate-900">Total: <span id="cartTotal" class="text-indigo-600">S/ 0</span></div>
+        <div class="flex gap-3">
+          <button data-close class="px-6 py-3 rounded-xl font-700 text-slate-700 hover:bg-slate-100 transition">Seguir comprando</button>
+          <button id="checkoutBtn" class="px-6 py-3 rounded-xl bg-emerald-600 text-white font-700 hover:bg-emerald-700 transition">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="max-w-7xl mx-auto px-6 py-8 text-sm text-slate-500">© 2025 CEDP SAC</footer>
+
+  <script>
+    // Utility: localStorage wrappers
+    function getCart(){ return JSON.parse(localStorage.getItem('cedp_cart') || '[]'); }
+    function saveCart(items){ localStorage.setItem('cedp_cart', JSON.stringify(items)); updateCartCount(); }
+    function getUser(){ return JSON.parse(localStorage.getItem('cedp_user') || 'null'); }
+    function saveUser(u){ localStorage.setItem('cedp_user', JSON.stringify(u)); }
+    function getEnrollments(){ return JSON.parse(localStorage.getItem('cedp_enrollments') || '[]'); }
+
+    // Protect page: redirect to login if not authenticated
+    (function(){ const cu = getUser(); if(!cu){ window.location.href = 'login.html'; } })();
+
+    // Renderers
+    function updateCartCount(){ const c = getCart().reduce((s,i)=>s+i.qty,0); document.getElementById('cartCount').textContent = c; document.getElementById('statCart').textContent = c; document.getElementById('statPending').textContent = 0; }
+
+    function renderCartSummary(){ const cart = getCart(); const container = document.getElementById('cartSummary'); container.innerHTML = '';
+      if(cart.length===0) { container.innerHTML = '<p class="text-sm text-slate-500">Tu carrito está vacío.</p>'; return; }
+      let total = 0;
+      cart.forEach(ci=>{
+        total += parseFloat(ci.priceNumber||0) * (ci.qty||1);
+        const el = document.createElement('div'); el.className = 'flex items-center justify-between p-3 border rounded-lg';
+        el.innerHTML = `<div><div class="font-700">${ci.title}</div><div class="text-sm text-slate-500">${ci.duration} • ${ci.start}</div></div><div class="text-right"><div class="font-700">S/ ${(parseFloat(ci.priceNumber||0)*(ci.qty||1)).toFixed(2)}</div><div class="text-sm text-slate-500">Cantidad: ${ci.qty||1}</div></div>`;
+        container.appendChild(el);
+      });
+      const foot = document.createElement('div'); foot.className = 'mt-4 flex justify-between items-center'; foot.innerHTML = `<div class="font-900">Total:</div><div class="font-900 text-indigo-600">S/ ${total.toFixed(2)}</div>`; container.appendChild(foot);
+    }
+
+    function renderEnrollments(){ const list = getEnrollments(); const container = document.getElementById('enrollList'); container.innerHTML = '';
+      if(list.length===0){ container.innerHTML = '<p class="text-sm text-slate-500">No tienes cursos inscritos aún.</p>'; document.getElementById('statEnrolled').textContent = 0; return; }
+      document.getElementById('statEnrolled').textContent = list.length;
+      list.forEach(it=>{
+        const el = document.createElement('div'); el.className = 'p-3 border rounded-lg flex items-center justify-between';
+        el.innerHTML = `<div><div class="font-700">${it.title}</div><div class="text-sm text-slate-500">Progreso: ${it.progress||0}%</div></div><div class="text-sm text-slate-500">Estado: ${it.status||'Activo'}</div>`;
+        container.appendChild(el);
+      });
+    }
+
+    function renderProfile(){ const u = getUser(); if(!u){ document.getElementById('userName').textContent = 'Invitado'; document.getElementById('userEmail').textContent = 'usuario@ejemplo.com'; document.getElementById('greetName').textContent = 'Invitado'; document.getElementById('lastAccess').textContent = '-'; return; }
+      document.getElementById('userName').textContent = u.name || u.email || 'Usuario';
+      document.getElementById('userEmail').textContent = u.email || '';
+      document.getElementById('greetName').textContent = u.name || u.email || 'Usuario';
+      document.getElementById('lastAccess').textContent = new Date(u.lastAccess || Date.now()).toLocaleString();
+      // fill settings
+      document.getElementById('inputName').value = u.name || '';
+      document.getElementById('inputEmail').value = u.email || '';
+      document.getElementById('inputBio').value = u.bio || '';
+    }
+
+    // Cart modal
+    const cartModal = document.getElementById('cartModal');
+    function renderCartModal(){ const container = document.getElementById('cartItems'); container.innerHTML = ''; const cart = getCart(); if(cart.length===0){ container.innerHTML = '<p class="text-sm text-slate-500">Tu carrito está vacío.</p>'; document.getElementById('cartTotal').textContent = 'S/ 0'; return; } let total = 0; cart.forEach(ci=>{ total += parseFloat(ci.priceNumber||0) * (ci.qty||1); const el = document.createElement('div'); el.className = 'flex items-center justify-between gap-4 p-4 border-2 border-slate-100 rounded-xl'; el.innerHTML = `<div><div class="font-700">${ci.title}</div><div class="text-sm text-slate-500">${ci.duration}</div></div><div class="text-right"><div class="font-700">S/ ${(parseFloat(ci.priceNumber||0)*(ci.qty||1)).toFixed(2)}</div><div class="text-sm text-slate-500">Cantidad: ${ci.qty||1}</div></div>`; container.appendChild(el); }); document.getElementById('cartTotal').textContent = `S/ ${total.toFixed(2)}`; }
+
+    document.getElementById('cartBtn').addEventListener('click', ()=>{ renderCartModal(); cartModal.classList.remove('hidden'); });
+    document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click', ()=> cartModal.classList.add('hidden')));
+    document.getElementById('checkoutBtn').addEventListener('click', ()=> alert('Ir al checkout...'));
+
+    // Activity & Orders (simple UI from localStorage)
+    function getActivity(){ return JSON.parse(localStorage.getItem('cedp_activity') || '[]'); }
+    function getOrders(){ return JSON.parse(localStorage.getItem('cedp_orders') || '[]'); }
+
+    function renderActivity(){ const list = getActivity(); const el = document.getElementById('activityList'); el.innerHTML = ''; if(list.length===0){ el.innerHTML = '<li class="text-sm text-slate-500">Sin actividad reciente.</li>'; return; } list.forEach(a=>{ const li=document.createElement('li'); li.className='text-sm text-slate-700'; li.textContent = `${new Date(a.date).toLocaleString()} — ${a.text}`; el.appendChild(li); }); }
+
+    function renderOrders(){ const list = getOrders(); const el = document.getElementById('ordersList'); el.innerHTML = ''; if(list.length===0){ el.innerHTML = '<p class="text-sm text-slate-500">No hay pedidos registrados.</p>'; return; } list.forEach(o=>{ const d=document.createElement('div'); d.className='p-3 border rounded-lg flex items-center justify-between'; d.innerHTML = `<div><div class="font-700">Pedido #${o.id}</div><div class="text-sm text-slate-500">${new Date(o.date).toLocaleDateString()} — ${o.status}</div></div><div class="text-indigo-600 font-700">S/ ${parseFloat(o.total||0).toFixed(2)}</div>`; el.appendChild(d); }); }
+
+    // Profile save & logout
+    document.getElementById('saveProfile').addEventListener('click', ()=>{
+      const u = getUser() || {};
+      u.name = document.getElementById('inputName').value.trim();
+      u.email = document.getElementById('inputEmail').value.trim();
+      u.bio = document.getElementById('inputBio').value.trim();
+      u.lastAccess = Date.now();
+      saveUser(u);
+      renderProfile();
+      alert('Perfil guardado');
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', ()=>{ localStorage.removeItem('cedp_user'); window.location.href = 'login.html'; });
+    document.getElementById('logoutBtn2').addEventListener('click', ()=>{ localStorage.removeItem('cedp_user'); window.location.href = 'login.html'; });
+
+    // Small helper to open edit
+    document.getElementById('editProfile').addEventListener('click', ()=> window.location.hash = '#settings');
+
+    // Init
+    renderProfile(); updateCartCount(); renderCartSummary(); renderEnrollments(); renderActivity(); renderOrders();
+  </script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CEDP SAC — Cursos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: INTER -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root { 
+      --base-size: 16px;
+      font-family: 'Inter', sans-serif;
+    }
+    html { 
+      font-size: var(--base-size);
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .text-section-title { font-size: 2.25rem; font-weight: 900; }
+    .text-card-title { font-size: 1.5rem; font-weight: 800; }
+    .text-body { font-size: 1.125rem; line-height: 1.7; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased leading-relaxed" style="font-family: 'Inter', sans-serif;">
+
+  <!-- HEADER: mismo diseño que en index.html (para consistencia) -->
+  <header class="bg-white/95 sticky top-0 backdrop-blur-lg z-50 shadow-sm border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition">
+        <svg class="w-11 h-11 text-indigo-600" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <rect width="24" height="24" rx="6" fill="currentColor" />
+        </svg>
+        <div>
+          <h1 class="text-xl font-900 leading-tight">CEDP <span class="text-indigo-600">SAC</span></h1>
+          <p class="text-xs font-500 text-slate-500 -mt-1">Formación técnica profesional</p>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-base font-600">
+        <a href="courses.html" class="text-indigo-600 font-700 border-b-2 border-indigo-600">Cursos</a>
+        <a href="diplomados.html" class="text-slate-700 hover:text-indigo-600 transition">Diplomados</a>
+        <a href="about.html" class="text-slate-700 hover:text-indigo-600 transition">Nosotros</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button id="openSearch" class="p-2.5 rounded-lg hover:bg-slate-100 transition" title="Buscar">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.6"/></svg>
+        </button>
+        <button id="cartBtn" class="relative p-2.5 rounded-lg hover:bg-slate-100 transition" aria-label="Ver carrito">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M3 3h2l.9 5.4A4 4 0 0 0 9.8 12h7.4a4 4 0 0 0 3.9-3.6L22 6H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span id="cartCount" class="absolute -top-1 -right-1 bg-rose-500 text-white text-xs font-700 rounded-full w-5 h-5 grid place-items-center">0</span>
+        </button>
+        <a href="user.html" class="ml-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-700 hover:bg-indigo-100 transition">Mi Cuenta</a>
+        <button id="loginBtn" class="px-5 py-2.5 rounded-full bg-indigo-600 text-white text-base font-700 hover:bg-indigo-700 transition shadow-md">Acceder</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-16">
+    <div class="mb-8">
+      <h2 class="text-4xl md:text-5xl font-900 leading-tight">Catálogo de Cursos</h2>
+      <p class="text-body text-slate-700 font-500 mt-4">Cursos cortos diseñados para adquirir habilidades prácticas y salir al mercado laboral.</p>
+    </div>
+
+    <!-- Controles: búsqueda, filtros -->
+    <div class="mt-8 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+      <div class="flex gap-3 flex-col md:flex-row">
+        <input id="searchInput" class="w-full md:w-96 border-2 border-slate-200 rounded-lg px-4 py-2.5 font-600 focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition" placeholder="Buscar por título, tecnología o duración..." />
+        <select id="categoryFilter" class="border-2 border-slate-200 rounded-lg px-4 py-2.5 font-600 focus:outline-none focus:border-indigo-600">
+          <option value="all">Todas las categorías</option>
+          <option value="tecnologia">Tecnología</option>
+          <option value="diseno">Diseño</option>
+          <option value="gestion">Gestión</option>
+        </select>
+      </div>
+
+      <div class="flex gap-3 items-center">
+        <label class="text-sm font-700 text-slate-600">Ordenar:</label>
+        <select id="sortSelect" class="border-2 border-slate-200 rounded-lg px-4 py-2.5 font-600 focus:outline-none focus:border-indigo-600">
+          <option value="relevance">Relevancia</option>
+          <option value="price-asc">Precio: menor a mayor</option>
+          <option value="price-desc">Precio: mayor a menor</option>
+          <option value="duration-asc">Duración: corta a larga</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <section id="coursesGrid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></section>
+
+    <!-- PAGINACIÓN -->
+    <div class="mt-10 flex justify-center items-center gap-3">
+      <button id="prevPage" class="px-6 py-3 rounded-lg border-2 border-slate-200 font-700 text-slate-700 hover:bg-slate-100 transition">Anterior</button>
+      <div id="pageInfo" class="text-base font-700 text-slate-600 min-w-48 text-center"></div>
+      <button id="nextPage" class="px-6 py-3 rounded-lg border-2 border-slate-200 font-700 text-slate-700 hover:bg-slate-100 transition">Siguiente</button>
+    </div>
+  </main>
+
+  <!-- MODAL DETALLE -->
+  <div id="courseModal" class="fixed inset-0 hidden flex items-center justify-center z-50">
+    <div class="absolute inset-0 bg-black/30" data-close></div>
+    <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-4xl z-50">
+      <div class="flex justify-between items-start gap-4">
+        <div class="flex gap-4">
+          <img id="modalImg" src="" alt="" class="w-48 h-32 object-cover rounded-2xl" />
+          <div>
+            <h3 id="modalTitle" class="text-2xl font-900 text-slate-900"></h3>
+            <p id="modalCategory" class="text-sm font-700 text-slate-500 mt-2"></p>
+            <div class="mt-3 text-indigo-600 font-900 text-xl" id="modalPrice"></div>
+            <div class="text-sm font-700 text-slate-500" id="modalDuration"></div>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <button data-close class="px-4 py-2.5 rounded-lg border-2 border-slate-200 font-700 text-slate-700 hover:bg-slate-100 transition">Cerrar</button>
+          <button id="modalAdd" class="px-4 py-2.5 rounded-lg bg-indigo-600 text-white font-700 hover:bg-indigo-700 transition">Agregar al carrito</button>
+        </div>
+      </div>
+
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h4 class="text-card-title font-800">Descripción</h4>
+          <p id="modalDesc" class="text-base text-slate-700 font-500 mt-3"></p>
+
+          <h4 class="text-card-title font-800 mt-6">Lo que aprenderás</h4>
+          <ul id="modalLearn" class="mt-3 list-disc list-inside text-base text-slate-700 font-500 space-y-2"></ul>
+        </div>
+
+        <div class="bg-gradient-to-br from-slate-50 to-blue-50 p-6 rounded-2xl border border-slate-200">
+          <h4 class="text-card-title font-800">Detalles</h4>
+          <ul class="mt-4 text-sm text-slate-700 font-700 space-y-3">
+            <li><strong>Modalidad:</strong> <span class="text-slate-600 font-600">Clases en vivo + grabadas</span></li>
+            <li><strong>Inicio:</strong> <span id="modalStart" class="text-slate-600 font-600"></span></li>
+            <li><strong>Entrega:</strong> <span class="text-slate-600 font-600">Certificado físico y digital</span></li>
+            <li><strong>Nivel:</strong> <span class="text-slate-600 font-600">Inicial → Intermedio</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL CARRITO -->
+  <div id="cartModal" class="fixed inset-0 hidden flex items-center justify-center z-50">
+    <div class="absolute inset-0 bg-black/30" data-close></div>
+    <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl z-50">
+      <h3 class="text-2xl font-900 text-slate-900">Tu carrito</h3>
+      <div id="cartItems" class="mt-6"></div>
+      <div class="mt-8 flex justify-between items-center border-t pt-6">
+        <div class="text-xl font-900 text-slate-900">Total: <span id="cartTotal" class="text-indigo-600">S/ 0</span></div>
+        <div class="flex gap-3">
+          <button data-close class="px-6 py-3 rounded-xl font-700 text-slate-700 hover:bg-slate-100 transition">Seguir comprando</button>
+          <button id="checkoutBtn" class="px-6 py-3 rounded-xl bg-emerald-600 text-white font-700 hover:bg-emerald-700 transition">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS: datos + lógica -->
+  <script>
+    // DB local (extiende el ejemplo original con campos numéricos para calcular)
+    const db = [
+      { id:1, type:'curso', category:'tecnologia', title:'Desarrollo Web Fullstack', price:'S/ 450', priceNumber:450, duration:'4 Meses', durationMonths:4, start:'20 Ene', img:'https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800', desc:'HTML5, CSS3, JavaScript, React, Node.js y despliegue. Proyecto final.', learn:['HTML semántico','CSS avanzado','JavaScript moderno','React & Hooks','APIs y Node.js'] },
+      { id:2, type:'curso', category:'diseno', title:'Diseño UX/UI Avanzado', price:'S/ 380', priceNumber:380, duration:'3 Meses', durationMonths:3, start:'05 Feb', img:'https://images.unsplash.com/photo-1586717791821-3f44a5638d4f?auto=format&fit=crop&w=800', desc:'Principios de UX, investigación, prototipado y sistemas de diseño en Figma.', learn:['Investigación de usuarios','Wireframing','Prototipado','Sistemas de diseño'] },
+      { id:3, type:'curso', category:'gestion', title:'Excel para Negocios', price:'S/ 200', priceNumber:200, duration:'1 Mes', durationMonths:1, start:'Semanal', img:'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800', desc:'Tablas dinámicas, macros y automatización.', learn:['Tablas dinámicas','Fórmulas avanzadas','Macros & VBA'] },
+      { id:4, type:'curso', category:'tecnologia', title:'Python para Data Science', price:'S/ 500', priceNumber:500, duration:'5 Meses', durationMonths:5, start:'10 Mar', img:'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800', desc:'Pandas, NumPy, Matplotlib y ML introductorio.', learn:['Python base','Limpieza de datos','Visualización','Modelos predictivos'] },
+      { id:5, type:'curso', category:'tecnologia', title:'Introducción a Cloud (AWS Básico)', price:'S/ 320', priceNumber:320, duration:'2 Meses', durationMonths:2, start:'10 Feb', img:'https://images.unsplash.com/photo-1500336624523-d727130c3328?auto=format&fit=crop&w=800', desc:'Fundamentos de AWS: EC2, S3, IAM y despliegue de apps.', learn:['Fundamentos Cloud','EC2 & S3','Despliegue y escalabilidad'] },
+      { id:6, type:'curso', category:'diseno', title:'Illustrator y Branding', price:'S/ 260', priceNumber:260, duration:'1.5 Meses', durationMonths:1.5, start:'01 Mar', img:'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800', desc:'Creación de identidades visuales y piezas gráficas profesionales.', learn:['Herramientas Illustrator','Técnicas de branding','Export y entrega'] },
+      // añade más cursos si lo deseas
+    ];
+
+    // PAGINACIÓN
+    const pageSize = 6;
+    let currentPage = 1;
+    let activeList = db.filter(d => d.type==='curso');
+
+    // render
+    function renderGrid(list) {
+      const grid = document.getElementById('coursesGrid'); grid.innerHTML = '';
+      const startIdx = (currentPage-1)*pageSize;
+      const pageItems = list.slice(startIdx, startIdx+pageSize);
+
+      pageItems.forEach(item => {
+        const card = document.createElement('article');
+        card.className = 'bg-white rounded-2xl shadow p-4 flex flex-col hover:shadow-lg transition border border-slate-100';
+        card.innerHTML = `
+          <img class="w-full h-44 object-cover rounded-lg" src="${item.img}" alt="${item.title}" />
+          <div class="mt-4 flex-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs px-3 py-1.5 rounded-full bg-indigo-100 text-indigo-700 font-700">${item.category}</span>
+              <div class="text-indigo-700 font-900 text-lg">${item.price}</div>
+            </div>
+            <h3 class="mt-3 font-800 text-lg text-slate-900">${item.title}</h3>
+            <p class="text-sm text-slate-600 font-500 mt-2 line-clamp-3">${item.desc}</p>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button class="w-1/2 px-3 py-2.5 rounded-lg border-2 border-slate-200 font-700 text-slate-700 hover:bg-slate-50 transition viewBtn">Detalles</button>
+            <button class="w-1/2 px-3 py-2.5 rounded-lg bg-indigo-600 text-white font-700 hover:bg-indigo-700 transition addBtn">Agregar</button>
+          </div>
+        `;
+        // events
+        card.querySelector('.viewBtn').addEventListener('click', () => openModal(item.id));
+        card.querySelector('.addBtn').addEventListener('click', () => {
+          addToCart({...item});
+          alert('Curso agregado al carrito');
+        });
+        grid.appendChild(card);
+      });
+
+      const totalPages = Math.max(1, Math.ceil(list.length / pageSize));
+      document.getElementById('pageInfo').textContent = `Página ${currentPage} de ${totalPages}`;
+      document.getElementById('prevPage').disabled = currentPage<=1;
+      document.getElementById('nextPage').disabled = currentPage>=totalPages;
+    }
+
+    // FILTROS y BÚSQUEDA
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+    document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+    document.getElementById('sortSelect').addEventListener('change', applyFilters);
+
+    function applyFilters() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const cat = document.getElementById('categoryFilter').value;
+      const sort = document.getElementById('sortSelect').value;
+
+      let list = db.filter(d => d.type==='curso');
+
+      if(cat !== 'all') list = list.filter(l => l.category === cat);
+      if(q) list = list.filter(l => (l.title + ' ' + l.desc + ' ' + (l.learn||[]).join(' ')).toLowerCase().includes(q));
+
+      // sort
+      if(sort === 'price-asc') list = list.sort((a,b)=>a.priceNumber-b.priceNumber);
+      if(sort === 'price-desc') list = list.sort((a,b)=>b.priceNumber-a.priceNumber);
+      if(sort === 'duration-asc') list = list.sort((a,b)=>a.durationMonths - b.durationMonths);
+
+      activeList = list;
+      currentPage = 1;
+      renderGrid(activeList);
+    }
+
+    // PAGINACION BOTONES
+    document.getElementById('prevPage').addEventListener('click', ()=>{ if(currentPage>1) { currentPage--; renderGrid(activeList);} });
+    document.getElementById('nextPage').addEventListener('click', ()=>{ const totalPages = Math.ceil(activeList.length/pageSize); if(currentPage<totalPages) { currentPage++; renderGrid(activeList);} });
+
+    // MODAL
+    const modal = document.getElementById('courseModal');
+    const cartModal = document.getElementById('cartModal');
+    
+    function openModal(id) {
+      const item = db.find(d=>d.id===id);
+      if(!item) return;
+      document.getElementById('modalImg').src = item.img;
+      document.getElementById('modalTitle').textContent = item.title;
+      document.getElementById('modalCategory').textContent = item.category;
+      document.getElementById('modalPrice').textContent = item.price;
+      document.getElementById('modalDuration').textContent = item.duration;
+      document.getElementById('modalDesc').textContent = item.desc;
+      const learn = document.getElementById('modalLearn'); learn.innerHTML = '';
+      (item.learn||[]).forEach(l => learn.innerHTML += `<li>${l}</li>`);
+      document.getElementById('modalStart').textContent = item.start;
+      modal.classList.remove('hidden');
+
+      document.getElementById('modalAdd').onclick = () => { addToCart({...item}); alert('Curso agregado al carrito'); };
+    }
+    
+    document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      cartModal.classList.add('hidden');
+    }));
+
+    // CART FUNCTIONS
+    function getCart(){ return JSON.parse(localStorage.getItem('cedp_cart') || '[]'); }
+    function saveCart(items){ localStorage.setItem('cedp_cart', JSON.stringify(items)); updateCartCount(); }
+    function addToCart(item){ const cart=getCart(); const idx=cart.findIndex(c=>c.id===item.id); if(idx>-1) cart[idx].qty+=1; else cart.push({...item, qty:1}); saveCart(cart); }
+    function updateCartCount(){ const count = getCart().reduce((s,i)=>s+i.qty,0); document.getElementById('cartCount').textContent = count; }
+    
+    function renderCart() {
+      const container = document.getElementById('cartItems'); 
+      container.innerHTML = '';
+      const cart = getCart();
+      if(cart.length===0) {
+        container.innerHTML = '<p class="text-base font-600 text-slate-500">Tu carrito está vacío.</p>';
+        return;
+      }
+      let total = 0;
+      cart.forEach(ci => {
+        total += parseFloat(ci.priceNumber) * ci.qty;
+        const el = document.createElement('div');
+        el.className = 'flex items-center justify-between gap-4 p-4 border-2 border-slate-100 rounded-xl hover:border-indigo-300 transition';
+        el.innerHTML = `
+          <div>
+            <div class="font-700 text-slate-900">${ci.title}</div>
+            <div class="text-sm font-600 text-slate-500 mt-1">${ci.duration} • ${ci.start}</div>
+          </div>
+          <div class="text-right">
+            <div class="font-700 text-slate-900">S/ ${ (parseFloat(ci.priceNumber)*ci.qty).toFixed(2) }</div>
+            <div class="text-sm font-600 text-slate-500">Cantidad: ${ci.qty}</div>
+          </div>
+        `;
+        container.appendChild(el);
+      });
+      document.getElementById('cartTotal').textContent = `S/ ${total.toFixed(2)}`;
+    }
+
+    // CART BUTTON
+    document.getElementById('cartBtn').addEventListener('click', () => {
+      renderCart();
+      cartModal.classList.remove('hidden');
+    });
+
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+      alert('Redirigiendo al checkout...');
+      // Aquí iría la lógica de pago
+    });
+
+    // Inicializar
+    activeList = db.filter(d=>d.type==='curso');
+    renderGrid(activeList);
+    updateCartCount();
+  </script>
+</body>
+</html>

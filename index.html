@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CEDP SAC — Home</title>
+
+  <!-- Tailwind CDN (para prototipo). En producción compila tu CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: INTER -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tipografía: usar variable font-size global mayor -->
+  <style>
+    :root { 
+      --base-size: 16px;
+      font-family: 'Inter', sans-serif;
+    }
+    html { 
+      font-size: var(--base-size);
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Mejor contraste en badges y botones */
+    .glass { background: rgba(255,255,255,0.75); backdrop-filter: blur(8px); }
+    /* Estilos personalizados */
+    .text-hero { font-size: 4rem; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em; }
+    .text-section-title { font-size: 2.25rem; font-weight: 900; }
+    .text-card-title { font-size: 1.5rem; font-weight: 800; }
+    .text-body { font-size: 1.125rem; line-height: 1.7; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased leading-relaxed" style="font-family: 'Inter', sans-serif;">
+
+  <!-- HEADER (reutilizable en los otros archivos) -->
+  <header class="bg-white/95 sticky top-0 backdrop-blur-lg z-50 shadow-sm border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition">
+        <svg class="w-11 h-11 text-indigo-600" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <rect width="24" height="24" rx="6" fill="currentColor" />
+        </svg>
+        <div>
+          <h1 class="text-xl font-900 leading-tight">CEDP <span class="text-indigo-600">SAC</span></h1>
+          <p class="text-xs font-500 text-slate-500 -mt-1">Formación técnica profesional</p>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-base font-600">
+        <a href="courses.html" class="text-slate-700 hover:text-indigo-600 transition">Cursos</a>
+        <a href="diplomados.html" class="text-slate-700 hover:text-indigo-600 transition">Diplomados</a>
+        <a href="about.html" class="text-slate-700 hover:text-indigo-600 transition">Nosotros</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button id="openSearch" class="p-2.5 rounded-lg hover:bg-slate-100 transition" title="Buscar">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.6"/></svg>
+        </button>
+
+        <button id="cartBtn" class="relative p-2.5 rounded-lg hover:bg-slate-100 transition" aria-label="Ver carrito">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M3 3h2l.9 5.4A4 4 0 0 0 9.8 12h7.4a4 4 0 0 0 3.9-3.6L22 6H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span id="cartCount" class="absolute -top-1 -right-1 bg-rose-500 text-white text-xs font-700 rounded-full w-5 h-5 grid place-items-center">0</span>
+        </button>
+
+        <button id="loginBtn" class="px-5 py-2.5 rounded-full bg-indigo-600 text-white text-base font-700 hover:bg-indigo-700 transition shadow-md">Acceder</button>
+        <a href="user.html" class="ml-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-700 hover:bg-indigo-100 transition">Mi Cuenta</a>
+
+        <!-- mobile menu -->
+        <button id="mobileMenuBtn" class="md:hidden p-2.5" aria-expanded="false" aria-label="Abrir menú">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="max-w-7xl mx-auto px-6 py-16">
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-sm uppercase font-800 text-rose-500 tracking-wide">📌 Matrícula 2025 • Cupos limitados</p>
+        <h2 class="text-hero mt-4">Tu futuro profesional comienza aquí</h2>
+        <p class="text-body mt-6 text-slate-700 font-500">Formación técnica y certificaciones con vinculación laboral. Cursos cortos, diplomados especializados y formación práctica orientada al empleo.</p>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="courses.html" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-indigo-600 text-white font-700 text-base shadow-lg hover:bg-indigo-700 transition transform hover:scale-105">Ver cursos</a>
+          <a href="diplomados.html" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-slate-300 text-slate-700 font-700 text-base hover:bg-slate-50 transition">Ver diplomados</a>
+        </div>
+
+        <div class="mt-10 grid grid-cols-3 gap-4 text-center">
+          <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-slate-100">
+            <div class="text-3xl font-900 text-indigo-600">+5k</div>
+            <div class="text-sm font-700 text-slate-600 mt-2">Egresados</div>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-slate-100">
+            <div class="text-3xl font-900 text-indigo-600">98%</div>
+            <div class="text-sm font-700 text-slate-600 mt-2">Satisfacción</div>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition border border-slate-100">
+            <div class="text-3xl font-900 text-indigo-600">20+</div>
+            <div class="text-sm font-700 text-slate-600 mt-2">Convenios</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <!-- Visual card with benefits -->
+        <div class="glass rounded-3xl p-8 shadow-xl border border-white/40 backdrop-blur-xl">
+          <h3 class="text-card-title font-800">¿Qué ofrecemos?</h3>
+          <ul class="mt-6 grid gap-5">
+            <li class="flex gap-4 items-start group">
+              <span class="w-12 h-12 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-xl grid place-items-center font-900 text-lg flex-shrink-0">01</span>
+              <div>
+                <div class="font-800 text-base text-slate-900">Programas orientados al empleo</div>
+                <div class="text-sm text-slate-600 font-500 mt-1">Proyectos reales y vinculación directa con empresas.</div>
+              </div>
+            </li>
+            <li class="flex gap-4 items-start">
+              <span class="w-12 h-12 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-xl grid place-items-center font-900 text-lg flex-shrink-0">02</span>
+              <div>
+                <div class="font-800 text-base text-slate-900">Docentes con experiencia</div>
+                <div class="text-sm text-slate-600 font-500 mt-1">Profesionales en activo — mentors & coaches.</div>
+              </div>
+            </li>
+            <li class="flex gap-4 items-start">
+              <span class="w-12 h-12 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-xl grid place-items-center font-900 text-lg flex-shrink-0">03</span>
+              <div>
+                <div class="font-800 text-base text-slate-900">Certificación oficial</div>
+                <div class="text-sm text-slate-600 font-500 mt-1">Documento físico y digital al aprobar el programa.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials + Quick catalog preview -->
+    <section class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2 bg-white p-8 rounded-3xl shadow-md border border-slate-100">
+        <h3 class="text-section-title font-800">Testimonios</h3>
+        <div class="mt-6 grid gap-5">
+          <blockquote class="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 border-l-4 border-indigo-600">
+            <p class="text-lg font-700 text-slate-900">"La metodología práctica me permitió conseguir empleo en 3 meses."</p>
+            <footer class="mt-3 text-sm font-600 text-slate-600">— Ana Rodríguez, Egresada Diseño</footer>
+          </blockquote>
+          <blockquote class="p-6 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border-l-4 border-indigo-600">
+            <p class="text-lg font-700 text-slate-900">"Los docentes son profesionales en activo y los proyectos son reales."</p>
+            <footer class="mt-3 text-sm font-600 text-slate-600">— Luis Pérez, Egresado Gestión</footer>
+          </blockquote>
+        </div>
+      </div>
+
+      <aside class="bg-white p-8 rounded-3xl shadow-md border border-slate-100">
+        <h4 class="text-card-title font-800">Cursos destacados</h4>
+        <ul class="mt-6 space-y-4">
+          <li class="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-indigo-50 to-blue-50 hover:from-indigo-100 hover:to-blue-100 transition">
+            <div>
+              <div class="font-700 text-slate-900">Desarrollo Web Fullstack</div>
+              <div class="text-xs font-600 text-slate-500 mt-1">4 meses • Inicio 20 Ene</div>
+            </div>
+            <div class="text-indigo-700 font-900">S/ 450</div>
+          </li>
+          <li class="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition">
+            <div>
+              <div class="font-700 text-slate-900">Python para Data Science</div>
+              <div class="text-xs font-600 text-slate-500 mt-1">5 meses • Inicio 10 Mar</div>
+            </div>
+            <div class="text-indigo-700 font-900">S/ 500</div>
+          </li>
+          <li class="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-orange-50 to-rose-50 hover:from-orange-100 hover:to-rose-100 transition">
+            <div>
+              <div class="font-700 text-slate-900">Diseño UX/UI Avanzado</div>
+              <div class="text-xs font-600 text-slate-500 mt-1">3 meses • Inicio 05 Feb</div>
+            </div>
+            <div class="text-indigo-700 font-900">S/ 380</div>
+          </li>
+        </ul>
+
+        <a href="courses.html" class="mt-6 inline-block w-full text-center px-4 py-3 bg-indigo-600 text-white font-700 rounded-xl hover:bg-indigo-700 transition">Ver catálogo completo</a>
+      </aside>
+    </section>
+
+    <!-- Footer summary / values -->
+    <section class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-3xl shadow-sm border border-blue-100 text-center hover:shadow-md transition">
+        <h4 class="text-card-title font-800 text-slate-900">🚀 Innovación</h4>
+        <p class="text-base text-slate-600 font-600 mt-3">Actualizamos mallas curriculares cada semestre para adaptarnos al mercado.</p>
+      </div>
+      <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-8 rounded-3xl shadow-sm border border-emerald-100 text-center hover:shadow-md transition">
+        <h4 class="text-card-title font-800 text-slate-900">✅ Integridad</h4>
+        <p class="text-base text-slate-600 font-600 mt-3">Formamos profesionales con ética y enfoque práctico.</p>
+      </div>
+      <div class="bg-gradient-to-br from-rose-50 to-pink-50 p-8 rounded-3xl shadow-sm border border-rose-100 text-center hover:shadow-md transition">
+        <h4 class="text-card-title font-800 text-slate-900">👥 Comunidad</h4>
+        <p class="text-base text-slate-600 font-600 mt-3">Bolsa de trabajo y networking con empresas aliadas.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- LOGIN & CART MODALS (lightweight, re-used) -->
+  <div id="loginModal" class="fixed inset-0 hidden flex items-center justify-center z-50">
+    <div class="absolute inset-0 bg-black/30" data-close></div>
+    <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-md z-50">
+      <h3 class="text-2xl font-900 text-slate-900">Iniciar sesión (demo)</h3>
+      <p class="text-base font-600 text-slate-500 mt-2">Usa un nombre cualquiera para la demo.</p>
+      <input id="loginInput" class="mt-6 w-full border-2 border-slate-200 px-4 py-3 rounded-xl font-600 focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition" placeholder="Nombre de usuario" />
+      <div class="mt-6 flex justify-end gap-3">
+        <button data-close class="px-6 py-3 rounded-xl font-700 text-slate-700 hover:bg-slate-100 transition">Cancelar</button>
+        <button id="confirmLogin" class="px-6 py-3 rounded-xl bg-indigo-600 text-white font-700 hover:bg-indigo-700 transition">Entrar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cartModal" class="fixed inset-0 hidden flex items-center justify-center z-50">
+    <div class="absolute inset-0 bg-black/30" data-close></div>
+    <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl z-50">
+      <h3 class="text-2xl font-900 text-slate-900">Tu carrito</h3>
+      <div id="cartItems" class="mt-6"></div>
+      <div class="mt-8 flex justify-between items-center border-t pt-6">
+        <div class="text-xl font-900 text-slate-900">Total: <span id="cartTotal" class="text-indigo-600">S/ 0</span></div>
+        <div class="flex gap-3">
+          <button data-close class="px-6 py-3 rounded-xl font-700 text-slate-700 hover:bg-slate-100 transition">Seguir comprando</button>
+          <button id="checkoutBtn" class="px-6 py-3 rounded-xl bg-emerald-600 text-white font-700 hover:bg-emerald-700 transition">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS: login + cart basics (localStorage) -->
+  <script>
+    // Simple UI controls
+    const loginBtn = document.getElementById('loginBtn');
+    const loginModal = document.getElementById('loginModal');
+    const cartBtn = document.getElementById('cartBtn');
+    const cartModal = document.getElementById('cartModal');
+
+    // open/close helpers
+    document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', () => {
+      loginModal.classList.add('hidden'); cartModal.classList.add('hidden');
+    }));
+
+    // LOGIN (demo)
+    loginBtn.addEventListener('click', () => loginModal.classList.remove('hidden'));
+    document.getElementById('confirmLogin').addEventListener('click', () => {
+      const name = document.getElementById('loginInput').value.trim() || 'Alumno';
+      localStorage.setItem('cedp_user', JSON.stringify({name, lastAccess: Date.now()}));
+      loginModal.classList.add('hidden');
+      // redirect user to dashboard after login
+      window.location.href = 'user.html';
+    });
+
+    // CART
+    cartBtn.addEventListener('click', () => {
+      renderCart();
+      cartModal.classList.remove('hidden');
+    });
+
+    // minimal cart functions (shared across pages by localStorage)
+    function getCart() { return JSON.parse(localStorage.getItem('cedp_cart') || '[]'); }
+    function saveCart(items) { localStorage.setItem('cedp_cart', JSON.stringify(items)); updateCartCount(); }
+    function updateCartCount() {
+      const count = getCart().reduce((s,i)=>s+i.qty,0);
+      document.getElementById('cartCount').textContent = count;
+    }
+    function addToCart(item) {
+      const cart = getCart();
+      const idx = cart.findIndex(c => c.id===item.id);
+      if(idx > -1) cart[idx].qty += 1; else cart.push({...item, qty:1});
+      saveCart(cart);
+    }
+    function renderCart() {
+      const container = document.getElementById('cartItems'); container.innerHTML = '';
+      const cart = getCart();
+      if(cart.length===0) container.innerHTML = '<p class="text-base font-600 text-slate-500">Tu carrito está vacío.</p>';
+      let total = 0;
+      cart.forEach(ci => {
+        total += parseFloat(ci.priceNumber) * ci.qty;
+        const el = document.createElement('div');
+        el.className = 'flex items-center justify-between gap-4 p-4 border-2 border-slate-100 rounded-xl hover:border-indigo-300 transition';
+        el.innerHTML = `
+          <div>
+            <div class="font-700 text-slate-900">${ci.title}</div>
+            <div class="text-sm font-600 text-slate-500 mt-1">${ci.duration} • ${ci.start}</div>
+          </div>
+          <div class="text-right">
+            <div class="font-700 text-slate-900">S/ ${ (parseFloat(ci.priceNumber)*ci.qty).toFixed(2) }</div>
+            <div class="text-sm font-600 text-slate-500">Cantidad: ${ci.qty}</div>
+          </div>
+        `;
+        container.appendChild(el);
+      });
+      document.getElementById('cartTotal').textContent = `S/ ${total.toFixed(2)}`;
+    }
+
+    // initialize
+    updateCartCount();
+
+    // If user already logged in
+    const u = JSON.parse(localStorage.getItem('cedp_user') || 'null');
+    if(u) { loginBtn.textContent = 'Mi Cuenta'; loginBtn.classList.add('bg-emerald-500'); }
+  </script>
+
+  <footer class="mt-16 bg-gradient-to-r from-slate-800 to-slate-900 border-t border-slate-700">
+    <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between gap-8">
+      <div>
+        <h4 class="text-xl font-900 text-white">CEDP SAC</h4>
+        <p class="text-base text-slate-300 font-600 mt-2">Capacitación técnica con enfoque laboral — contacto@cedp.example</p>
+      </div>
+      <div class="text-base font-700 text-slate-300">© 2025 CEDP SAC. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+</body>
+</html>
